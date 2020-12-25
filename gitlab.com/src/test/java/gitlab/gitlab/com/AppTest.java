@@ -6,26 +6,35 @@ import org.testng.annotations.*;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
-
+//import undetected_chromedriver as uc;
 public class AppTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+//private Object options;
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
-	  System.setProperty("webdriver.chrome.driver","C:\\Users\\ASHITH\\New folder\\gitlab.com\\Drivers\\chromedriver.exe");
-		driver=new ChromeDriver();
-      driver.manage().window().maximize();
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	  System.setProperty("webdriver.chrome.driver","C:\\Users\\ASHITH\\New folder\\demo\\Drivers\\chromedriver.exe");
+		ChromeOptions options = new ChromeOptions(); 
+		options.addArguments("--disable-blink-features=AutomationControlled");
+		 driver = new ChromeDriver(options=options);
+		
+		driver.get("https://gitlab.com/users/sign_in"); 
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testGitlab() throws Exception {
-    driver.get("https://gitlab.com/users/sign_in?__cf_chl_jschl_tk__=b69f7227516eaff7c5ad8ef256b42729fdd6154e-1608801582-0-AfDcvmyZWG0zQ-fKWuEGXe8IKzkiytHD0_-AhGGGrVfCNHK1GcjZwI_FQkutu7L2uFnJ4lLx7qVOpMd4W0y1Z0ztLRcnMvFB7-fOfA-0NS0MySu8ww5GM8bafKAF5fVEF4siCKsV9vA3poyql-mdQPu-xAgVriIbxdcN4gM7CJxGf0yUFHnueWP6K0RqIrMu7nH77CmsAMekrRkvQ-oFf9-Q7jo7PUshnLURK5XEgnnRGqCBvEQlLw5gsq7z03TIMMpDXsePSAH7dhfpganScMdcC5NxzFIySv5E9GPu_AuS7qclqAzm5ie0oKVHrKwHD74dhimeByZm2mkYLByxPU57eHpWMEz2l_oE9LXpQgGXKXYpWqFvd0U2r1oHpMNdqg");
+	  
+	
+    
     driver.findElement(By.id("user_login")).clear();
     driver.findElement(By.id("user_login")).sendKeys("aashith");
     driver.findElement(By.id("user_password")).click();
